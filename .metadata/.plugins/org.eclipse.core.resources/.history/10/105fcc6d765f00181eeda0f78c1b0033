@@ -1,0 +1,22 @@
+package ex01;
+
+import javax.swing.JFrame;
+
+public class FormPrincipal {
+	
+	public static void main(String[] args) {
+		
+		JFrame form = new JFrame("Lanchonete");
+		//form.setResizable(false);
+		form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		form.setSize(290, 300);
+		form.setLocationRelativeTo(null);
+		form.setLayout(null);
+		
+		
+		
+		form.setVisible(true);
+		
+	}
+	
+}

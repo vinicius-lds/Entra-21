@@ -1,0 +1,13 @@
+package ex01;
+
+import javax.swing.JFrame;
+
+public class Form {
+	
+	public static void main(String[] args) {
+		
+		JFrame form = new JFrame("Lanchonete");
+		
+	}
+	
+}

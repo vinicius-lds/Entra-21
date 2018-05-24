@@ -1,0 +1,74 @@
+package ex01;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+
+public class FormProdutos {
+
+	public FormProdutos() {
+		
+		JFrame formulario = new JFrame();
+		formulario.setResizable(false);
+		formulario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		formulario.setSize(290, 300);
+		formulario.setLocationRelativeTo(null);
+		formulario.setTitle("CRUD");
+		formulario.setLayout(null);
+		
+		JLabel lbl_produto = new JLabel("Produto");
+		JLabel lbl_valor = new JLabel("Valor");
+		JLabel lbl_quantidade = new JLabel("Quantidade");
+		
+		JTextField tf_produto = new JTextField();
+		JTextField tf_valor = new JTextField();
+		JTextField tf_quantidade = new JTextField();
+		
+		JButton btn_cadatrar = new JButton("Cadastrar");
+		
+		lbl_produto.setBounds(10, 10, 65, 20);
+		lbl_valor.setBounds(10, 30, 65, 20);
+		lbl_quantidade.setBounds(10, 50, 65, 20);
+		
+		tf_produto.setBounds(80, 10, 200, 20);
+		tf_valor.setBounds(80, 30, 200, 20);
+		tf_quantidade.setBounds(80, 50, 200, 20);
+		
+		btn_cadatrar.setBounds(100, 80, 95, 20);
+		
+		DefaultTableModel dtm_model = new DefaultTableModel(new String[]{"Produto", "Valor", "Quantidade"}, 0);
+		JTable tab_produtos = new JTable(dtm_model);
+		JScrollPane sp_tabelaProdutos = new JScrollPane(tab_produtos);
+		sp_tabelaProdutos.setBounds(10, 110, 265, 150);
+		
+		
+		
+		formulario.add(lbl_produto);
+		formulario.add(lbl_valor);
+		formulario.add(lbl_quantidade);
+		formulario.add(tf_produto);
+		formulario.add(tf_valor);
+		formulario.add(tf_quantidade);
+		formulario.add(btn_cadatrar);
+		formulario.add(sp_tabelaProdutos);
+		formulario.setVisible(true);
+		
+	
+		
+	}
+	
+	
+	
+}

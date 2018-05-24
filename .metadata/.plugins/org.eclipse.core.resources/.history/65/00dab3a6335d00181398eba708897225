@@ -1,0 +1,14 @@
+import javax.swing.JFrame;
+
+public class Teste {
+	
+	public Teste(String nome, String valor, String quantidade) {
+		JFrame tela = new JFrame();
+		
+		
+		
+		tf_nome.setText(nome)
+		
+	}
+	
+}

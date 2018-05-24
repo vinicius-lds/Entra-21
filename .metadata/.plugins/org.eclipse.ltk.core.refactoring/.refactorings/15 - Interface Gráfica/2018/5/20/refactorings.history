@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;jradioButton&apos; to &apos;jradiobutton&apos;&#x0D;&#x0A;- Original project: &apos;15 - Interface Gráfica&apos;&#x0D;&#x0A;- Original element: &apos;15 - Interface Gráfica/src/jradioButton&apos;&#x0D;&#x0A;- Renamed element: &apos;15 - Interface Gráfica/src/jradiobutton&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;jradioButton&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;jradioButton" name="jradiobutton" qualified="false" references="true" stamp="1526328580490" textual="false" version="1.0"/>
+</session>

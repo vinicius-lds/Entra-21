@@ -1,0 +1,56 @@
+package ex01;
+
+import java.util.ArrayList;
+
+public class Produto {
+	
+	private static ArrayList<Produto> produtos = new ArrayList<>();
+	
+	public static void addProduto(Produto p) {
+		produtos.add(p);
+	}
+	
+	public static void removeProduto(int index) {
+		produtos.remove(index);
+	}
+	
+	public static void removeProdutos(String nome) {
+		for(Produto p: produtos) {
+			if(p.getNome().equals(nome)) {
+				produtos.remove(p);
+			}
+		}
+	}
+	
+	private String nome;
+	private double valor;
+	
+	public Produto(String nome, double valor) {
+		super();
+		this.nome = nome;
+		this.valor = valor;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		if(nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Nome inválido!");
+		}
+		this.nome = nome;
+	}
+	
+	public double getValor() {
+		return valor;
+	}
+	
+	public void setValor(double valor) {
+		if(valor < 0) {
+			throw new IllegalArgumentException("Valor é inválido! " + valor);
+		}
+		this.valor = valor;
+	}
+	
+}

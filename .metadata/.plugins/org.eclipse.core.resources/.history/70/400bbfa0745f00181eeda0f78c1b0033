@@ -1,0 +1,16 @@
+package ex01;
+
+import java.util.ArrayList;
+
+public class Pedido {
+	
+	private ArrayList<Produto> produtos;
+
+	public Pedido() {
+		super();
+		produtos = new ArrayList<>();
+	}
+	
+	
+	
+}

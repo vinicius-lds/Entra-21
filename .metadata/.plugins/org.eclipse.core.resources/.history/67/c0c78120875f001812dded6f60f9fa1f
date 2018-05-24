@@ -1,0 +1,33 @@
+package ex01;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Pedido {
+	
+	private static HashMap<Pedido, Integer> pedidos = new HashMap();
+	
+	public static void addPedido(Pedido p, Integer quantidade) {
+		pedidos.put(p, quantidade);
+	}
+	
+	public static ArrayList<Pedido> getPedidos() {
+		return pedidos;
+	}
+	
+	private ArrayList<Produto> produtos;
+
+	public Pedido() {
+		super();
+		this.produtos = new ArrayList<>();
+	}
+
+	public ArrayList<Produto> getProdutos() {
+		return produtos;
+	}
+	
+	public void addProduto(Produto p) {
+		this.produtos.add(p);
+	}
+	
+}
