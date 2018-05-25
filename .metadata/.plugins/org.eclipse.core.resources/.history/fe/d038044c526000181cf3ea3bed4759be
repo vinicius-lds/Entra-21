@@ -1,0 +1,36 @@
+package ex01;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class FormHistorico {
+	
+	public static JFrame formulario;
+	
+	public FormHistorico() {
+		
+		formulario = new JFrame();
+		formulario.setResizable(false);
+		formulario.setSize(575, 320);
+		formulario.setLocationRelativeTo(null);
+		formulario.setTitle("Histórico");
+		formulario.setLayout(null);
+		
+		DefaultTableModel dtm_model = new DefaultTableModel(new String[]{"Nome do Cliente", "Produto", "Quantidade", "Data e Hora"}, 0);
+		JTable tab_produtos = new JTable(dtm_model);
+		JScrollPane sp_tabelaProdutos = new JScrollPane(tab_produtos);
+		sp_tabelaProdutos.setBounds(10, 10, 550, 300);
+		
+		formulario.add(sp_tabelaProdutos);
+		
+		formulario.setVisible(true);
+		
+	}
+
+	public static JFrame getFormulario() {
+		return formulario;
+	}
+	
+}

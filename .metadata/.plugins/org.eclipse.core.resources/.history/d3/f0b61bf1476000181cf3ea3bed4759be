@@ -1,0 +1,15 @@
+package ex01;
+
+import javax.swing.JLabel;
+
+public class ControllerFormPedidos {
+	
+	public static void atualizarTotal(JLabel lbl_total, Pedido p) {
+		double aux = 0.0;
+		for(Produto produto: p.getProdutos()) {
+			aux += produto.getValor() * produto.getQuantidade();
+		}
+		lbl_total.setText("R$ " + FORMATO_DECIMAL.format(aux));
+	}
+	
+}

@@ -1,0 +1,226 @@
+package ex01;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyVetoException;
+import java.beans.VetoableChangeListener;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.util.Vector;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+
+public class FormPedidos {
+	
+	public static final DecimalFormat FORMATO_DECIMAL = new DecimalFormat("#0.00"); 
+	public static boolean boolAux = false;
+	
+	public FormPedidos() {
+		
+		Pedido pedido = new Pedido();
+		
+		JFrame formulario = new JFrame();
+		formulario.setResizable(false);
+		formulario.setSize(575, 320);
+		formulario.setLocationRelativeTo(null);
+		formulario.setTitle("Fazer Pedido");
+		formulario.setLayout(null);
+		
+		JLabel lbl_produto = new JLabel("Produto", SwingConstants.CENTER);
+		JLabel lbl_preco = new JLabel("Preco", SwingConstants.CENTER);
+		JLabel lbl_quantidade = new JLabel("Quantidade", SwingConstants.CENTER);
+		JLabel lbl_precoTotal = new JLabel("Preço Total", SwingConstants.CENTER);
+		
+		JComboBox<Produto> cb_produtos = new JComboBox<Produto>(new Vector<Produto>(Produto.getProdutos()));
+		JLabel lbl_exibirPreco = new JLabel("", SwingConstants.CENTER);
+		SpinnerModel sm = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
+		JSpinner spn_quantidade = new JSpinner(sm);
+		JLabel lbl_exibirPrecoTotal = new JLabel("", SwingConstants.CENTER);
+		JButton btn_addCarrinho = new JButton("ADD");
+		
+		lbl_produto.setBounds(10, 10, 250, 20);
+		lbl_preco.setBounds(260, 10, 65, 20);
+		lbl_quantidade.setBounds(335, 10, 65, 20);
+		lbl_precoTotal.setBounds(410, 10, 65, 20);
+		
+		cb_produtos.setBounds(10, 30, 250, 20);
+		lbl_exibirPreco.setBounds(260, 30, 65, 20);
+		spn_quantidade.setBounds(335, 30, 65, 20);
+		lbl_exibirPrecoTotal.setBounds(410, 30, 65, 20);
+		btn_addCarrinho.setBounds(485, 30, 65, 20);
+		
+		DefaultTableModel dtm_model = new DefaultTableModel(new String[]{"Produto", "Preço", "Quantidade", "Preço Total"}, 0);
+		JTable tab_carrinho = new JTable(dtm_model);
+		JScrollPane sp_tabelaProdutos = new JScrollPane(tab_carrinho);
+		sp_tabelaProdutos.setBounds(10, 90, 540, 150);
+		
+		JLabel lbl_exibirPrecoPedido = new JLabel("Preco Pedido", SwingConstants.LEFT);
+		JButton btn_finalizarPedido = new JButton("Finalizar Pedido");
+		
+		lbl_exibirPrecoPedido.setBounds(10, 250, 100, 20);
+		btn_finalizarPedido.setBounds(425, 250, 123, 20);
+		
+		cb_produtos.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				Produto p = (Produto) cb_produtos.getSelectedItem();
+				lbl_exibirPreco.setText("R$" + FORMATO_DECIMAL.format(p.getValor()));
+				lbl_exibirPrecoTotal.setText("R$" + FORMATO_DECIMAL.format(p.getValor() * ((int) spn_quantidade.getValue())));
+			}
+			
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				
+			}
+		});
+		
+		spn_quantidade.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				Produto p = (Produto) cb_produtos.getSelectedItem();
+				lbl_exibirPrecoTotal.setText("R$" + FORMATO_DECIMAL.format(p.getValor() * ((int) spn_quantidade.getValue())));
+			}
+		
+		});
+		
+		btn_addCarrinho.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				
+				Produto p = (Produto) cb_produtos.getSelectedItem();
+				boolean aux = false;
+				for (int i = 0; i < dtm_model.getRowCount(); i++) {
+					if(dtm_model.getValueAt(i, 0).equals(p.getNome())) {
+						dtm_model.setValueAt(Integer.parseInt(dtm_model.getValueAt(i, 2).toString()) + (Integer.parseInt(spn_quantidade.getValue().toString())) , i, 2);
+						dtm_model.setValueAt((Double)dtm_model.getValueAt(i, 1) * (Integer)dtm_model.getValueAt(i, 2), i, 3);
+						aux = true;
+						break;
+					}
+				}
+				if(!aux) {
+					p = p.getNewInstance((int) spn_quantidade.getValue());
+					pedido.addProduto(p);
+					dtm_model.addRow(p.getRow());
+				}
+				atualizarTotal(lbl_exibirPrecoPedido, pedido);
+				
+			}
+		
+		});
+		dtm_model.addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				if(e.getColumn() >= 0 && (!boolAux)) {
+					Produto p = pedido.getProduto(dtm_model.getValueAt(e.getLastRow(), 0).toString());
+					try {
+						int qtdNova = Integer.parseInt(dtm_model.getValueAt(e.getLastRow(), 2).toString());
+						if(qtdNova < 1) {
+							throw new IllegalArgumentException("O valor " + qtdNova + " é inválido!");
+						}
+						p.setQuantidade(qtdNova);
+						boolAux = true;
+						dtm_model.setValueAt(((Double.parseDouble(dtm_model.getValueAt(e.getLastRow(), 1).toString())) * 
+											  (Double.parseDouble(dtm_model.getValueAt(e.getLastRow(), 2).toString()))), e.getLastRow(), 3);
+						atualizarTotal(lbl_exibirPrecoPedido, pedido);
+					} catch (Exception err) {
+						dtm_model.setValueAt(p.getQuantidade(), e.getLastRow(), 2);
+						JOptionPane.showMessageDialog(null, "Erro: Aqui " + err.getMessage());
+					}
+				} else {
+					boolAux = false;
+				}
+			}
+			
+		});
+		
+		tab_carrinho.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 127 && pedido.getProdutos().size() > 0){
+					pedido.removeProduto(tab_carrinho.getSelectedRow());
+					dtm_model.setNumRows(0);
+					for(int i = 0; i < pedido.getProdutos().size(); i ++) {
+						dtm_model.addRow(pedido.getProdutos().get(i).getRow());
+					}
+					atualizarTotal(lbl_exibirPrecoPedido, pedido);
+				}
+			}
+		});
+		
+		btn_finalizarPedido.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nomeCliente = JOptionPane.showInputDialog("Qual é o nome do cliente?");
+				for(Produto p: pedido.getProdutos()) {
+					Historico.addHistorico(new Historico(nomeCliente, LocalDateTime.now(), p));
+				}
+				formulario.dispose();			
+			}
+		});
+		
+		formulario.add(lbl_produto);
+		formulario.add(lbl_exibirPreco);
+		formulario.add(lbl_exibirPrecoTotal);
+		formulario.add(lbl_preco);
+		formulario.add(lbl_produto);
+		formulario.add(lbl_quantidade);
+		formulario.add(lbl_precoTotal);
+		formulario.add(lbl_exibirPrecoPedido);
+		formulario.add(cb_produtos);
+		formulario.add(spn_quantidade);
+		formulario.add(btn_addCarrinho);
+		formulario.add(btn_finalizarPedido);
+		formulario.add(sp_tabelaProdutos);
+		formulario.setVisible(true);
+		
+	}
+	
+	public static void atualizarTotal(JLabel lbl_total, Pedido p) {
+		double aux = 0.0;
+		for(Produto produto: p.getProdutos()) {
+			aux += produto.getValor() * produto.getQuantidade();
+		}
+		lbl_total.setText("R$ " + FORMATO_DECIMAL.format(aux));
+	}
+	
+}

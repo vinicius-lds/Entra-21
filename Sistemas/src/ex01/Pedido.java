@@ -29,4 +29,17 @@ public class Pedido {
 		this.produtos.add(p);
 	}
 	
+	public Produto getProduto(String nome) {
+		for(Produto p: produtos) {
+			if(p.getNome().equals(nome)) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public void removeProduto(int i) {
+		produtos.remove(i);
+	}
+	
 }

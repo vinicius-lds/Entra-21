@@ -1,0 +1,27 @@
+package ex01;
+
+import java.text.DecimalFormat;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+
+public class ControllerFormPedidos {
+	
+	public static final DecimalFormat FORMATO_DECIMAL = new DecimalFormat("#0.00"); 
+	
+	public static void atualizarTotal(JLabel lbl_total, Pedido p) {
+		double aux = 0.0;
+		for(Produto produto: p.getProdutos()) {
+			aux += produto.getValor() * produto.getQuantidade();
+		}
+		lbl_total.setText("R$ " + FORMATO_DECIMAL.format(aux));
+	}
+	
+	public static void atualizaNovoProduto(JComboBox<Object> cb_produtos, JLabel lbl_exibirPreco, JLabel lbl_exibirPrecoTotal, JSpinner spn_quantidade) {
+		Produto p = (Produto) cb_produtos.getSelectedItem();
+		lbl_exibirPreco.setText("R$" + FORMATO_DECIMAL.format(p.getValor()));
+		lbl_exibirPrecoTotal.setText("R$" + FORMATO_DECIMAL.format(p.getValor() * ((int) spn_quantidade.getValue())));
+	}
+	
+}

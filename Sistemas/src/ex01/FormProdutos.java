@@ -18,9 +18,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class FormProdutos {
 
+	private JFrame formulario;
+	
 	public FormProdutos() {
-		
-		JFrame formulario = new JFrame();
+	
+		formulario = new JFrame();
 		formulario.setResizable(false);
 		formulario.setSize(290, 280);
 		formulario.setLocationRelativeTo(null);
@@ -48,6 +50,10 @@ public class FormProdutos {
 		JScrollPane sp_tabelaProdutos = new JScrollPane(tab_produtos);
 		sp_tabelaProdutos.setBounds(10, 90, 265, 150);
 		
+		for(Produto p: Produto.getProdutos()) {
+			dtm_model.addRow(p.getRow());
+		}
+		
 		tf_valor.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -73,12 +79,16 @@ public class FormProdutos {
 			public void actionPerformed(ActionEvent evt) {
 				
 				try {
-					Produto novo = new Produto(tf_produto.getText(), 
-											   Double.parseDouble(tf_valor.getText().replaceAll(",", ".")));
-					Produto.addProduto(novo);
-					dtm_model.addRow(novo.getRow());
-					tf_produto.setText("");
-					tf_valor.setText("");
+					if(!Produto.alreadyHas(tf_produto.getText())) {
+						Produto novo = new Produto(tf_produto.getText(), 
+												   Double.parseDouble(tf_valor.getText().replaceAll(",", ".")));
+						Produto.addProduto(novo);
+						dtm_model.addRow(novo.getRow());
+						tf_produto.setText("");
+						tf_valor.setText("");
+					} else {
+						throw new IllegalArgumentException("\"" + tf_produto.getText() + "\" já está cadastrado!");
+					}
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
 				}
@@ -142,6 +152,8 @@ public class FormProdutos {
 		
 	}
 	
-	
+	public JFrame getFormulario() {
+		return formulario;
+	}
 	
 }

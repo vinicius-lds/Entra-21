@@ -1,0 +1,11 @@
+package ex01;
+
+import java.util.ArrayList;
+
+public class Historico {
+	
+	private static ArrayList<Historico> historico;
+	
+	
+	
+}

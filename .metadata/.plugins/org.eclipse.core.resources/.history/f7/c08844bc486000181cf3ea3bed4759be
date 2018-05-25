@@ -1,0 +1,51 @@
+package ex01;
+
+import java.text.DecimalFormat;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.table.DefaultTableModel;
+
+public class ControllerFormPedidos {
+	
+	public static final DecimalFormat FORMATO_DECIMAL = new DecimalFormat("#0.00"); 
+	
+	public static void atualizarTotal(JLabel lbl_total, Pedido p) {
+		double aux = 0.0;
+		for(Produto produto: p.getProdutos()) {
+			aux += produto.getValor() * produto.getQuantidade();
+		}
+		lbl_total.setText("R$ " + FORMATO_DECIMAL.format(aux));
+	}
+	
+	public static void atualizaNovoProduto(JComboBox<Produto> cb_produtos, JLabel lbl_exibirPreco, JLabel lbl_exibirPrecoTotal, JSpinner spn_quantidade) {
+		Produto p = (Produto) cb_produtos.getSelectedItem();
+		lbl_exibirPreco.setText("R$" + FORMATO_DECIMAL.format(p.getValor()));
+		lbl_exibirPrecoTotal.setText("R$" + FORMATO_DECIMAL.format(p.getValor() * ((int) spn_quantidade.getValue())));
+	}
+	
+	public static void atualizaQuantidadeProduto(JComboBox<Produto> cb_produtos, JLabel lbl_exibirPrecoTotal) {
+		Produto p = (Produto) cb_produtos.getSelectedItem();
+		lbl_exibirPrecoTotal.setText("R$" + FORMATO_DECIMAL.format(p.getValor() * ((int) spn_quantidade.getValue())));
+	}
+	
+	public static void atualizaProdutoTabela(JComboBox<Produto> cb_produtos, DefaultTableModel dtm_model, JSpinner spn_quantidade) {
+		Produto p = (Produto) cb_produtos.getSelectedItem();
+		boolean aux = false;
+		for (int i = 0; i < dtm_model.getRowCount(); i++) {
+			if(dtm_model.getValueAt(i, 0).equals(p.getNome())) {
+				dtm_model.setValueAt(Integer.parseInt(dtm_model.getValueAt(i, 2).toString()) + (Integer.parseInt(spn_quantidade.getValue().toString())) , i, 2);
+				dtm_model.setValueAt((Double)dtm_model.getValueAt(i, 1) * (Integer)dtm_model.getValueAt(i, 2), i, 3);
+				aux = true;
+				break;
+			}
+		}
+		if(!aux) {
+			p = p.getNewInstance((int) spn_quantidade.getValue());
+			pedido.addProduto(p);
+			dtm_model.addRow(p.getRow());
+		}
+	}
+	
+}

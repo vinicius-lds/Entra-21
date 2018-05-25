@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class FormPrincipal {
+	
+	public static JFrame frameAberto = new JFrame();
 	
 	public static void main(String[] args) {
 		
@@ -33,7 +36,8 @@ public class FormPrincipal {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FormProdutos();
+				frameAberto.dispose();
+				frameAberto = new FormProdutos().getFormulario();
 			}
 			
 		});
@@ -42,9 +46,23 @@ public class FormPrincipal {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FormPedidos();
+				frameAberto.dispose();
+				if(Produto.getProdutos().size() > 0) {
+					frameAberto = new FormPedidos().getFormulario();
+				} else {
+					JOptionPane.showMessageDialog(null, "Não existe nenhum produto cadastrado!");
+				}
 			}
 			
+		});
+		
+		btn_historico.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frameAberto.dispose();
+				frameAberto = new FormHistorico().getFormulario();
+			}
 		});
 		
 		form.add(btn_cadastrarProdutos);
