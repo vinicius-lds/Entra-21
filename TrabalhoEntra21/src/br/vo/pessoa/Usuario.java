@@ -128,25 +128,25 @@ public abstract class Usuario implements Serializable {
 
     protected void setPass(String pass) {
         //digito, upper case, lower case, especial
-        boolean[] caracteresNecessários = new boolean[4];
+        boolean[] caracteresNecessarios = new boolean[4];
         for(int i = 0; i < pass.length(); i++) {
             if(Character.isDigit(pass.charAt(i))) {
-                caracteresNecessários[0] = true;
+                caracteresNecessarios[0] = true;
             } else if(Character.isLowerCase(pass.charAt(i))) {
-                caracteresNecessários[1] = true;
+                caracteresNecessarios[1] = true;
             } else if(Character.isUpperCase(pass.charAt(i))) {
-                caracteresNecessários[2] = true;
+                caracteresNecessarios[2] = true;
             } else if(br.util.Character.isSpecialCharacter(pass.charAt(i))){
-                caracteresNecessários[3] = true;
+                caracteresNecessarios[3] = true;
             }
         }
-        if(!caracteresNecessários[0]) {
+        if(!caracteresNecessarios[0]) {
             throw new IllegalArgumentException("É necessário ter pelo menos um digito!");
-        } else if(!caracteresNecessários[1]) {
+        } else if(!caracteresNecessarios[1]) {
             throw new IllegalArgumentException("É necessário ter pelo menos uma letra minuscula!");
-        } else if(!caracteresNecessários[2]) {
+        } else if(!caracteresNecessarios[2]) {
             throw new IllegalArgumentException("É necessário ter pelo menos uma letra mauscula!");
-        } else if(!caracteresNecessários[3]) {
+        } else if(!caracteresNecessarios[3]) {
             throw new IllegalArgumentException("É necessário ter pelo menos um caracter especial!");
         }
         this.senha = pass;
