@@ -6,6 +6,7 @@ import br.view.FramePrincipal;
 import br.view.FormLogin;
 import br.view.FormPrimeiroUsuario;
 import br.vo.Login;
+import br.vo.pessoa.Cliente;
 import br.vo.pessoa.Usuario;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -46,8 +47,13 @@ public class ControllerLogin {
                         ((FormPrimeiroUsuario)frame).getController().setSessao(Login.getInstance());
                         frame.setVisible(true);
                     } else {
-                        frame = new FramePrincipal(Login.getInstance());
-                        frame.setVisible(true);
+                        if (Login.getInstance().getUsuario() instanceof Cliente) {
+                            JOptionPane.showMessageDialog(null, "Usuários do tipo cliente não tem acesso tem acesso a este software!");
+                            System.exit(0);
+                        } else {
+                            frame = new FramePrincipal(Login.getInstance());
+                            frame.setVisible(true);
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "A senha do usário está incorreta!");
