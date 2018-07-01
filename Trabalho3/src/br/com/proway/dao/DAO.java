@@ -13,9 +13,9 @@ import java.sql.SQLException;
  */
 public class DAO {
 
-    private final String USERNAME;// = "root";
-    private final String PASSWORD;// = "";
-    private final String URL;// = "jdbc:mysql://localhost:3306/mercado";
+    private final String USERNAME;
+    private final String PASSWORD;
+    private final String URL;
 
     public DAO(String username, String password, String url) throws SQLException {
         this.USERNAME = username;

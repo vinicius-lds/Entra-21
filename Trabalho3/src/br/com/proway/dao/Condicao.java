@@ -77,6 +77,12 @@ public class Condicao {
                 + tabelaJoin + "." + segundaColuna;
     }
     
+    /**
+     * Adiciona um comando INNER JOIN na condicão
+     * @param tabelaAtual a tabela em que o comando esta atualmente
+     * @param tabelaJoin a tabela que será juntada com a atual
+     * @param coluna o nome da coluna a qual será usada para o join (note que ambas as tabela devem ter essa coluna)
+     */
     public void addInnerJoin(String tabelaAtual, String tabelaJoin, String coluna) {
         info += " " 
                 + Comando.INNER_JOIN
@@ -90,6 +96,11 @@ public class Condicao {
                 + tabelaJoin + "." + coluna;
     }
     
+    /**
+     * Adiciona uma clausula = para o comando
+     * @param coluna a coluna que será comparada
+     * @param valor o valor que será comparado com o valor da coluna
+     */
     public void addEquals(String coluna, String valor) {
         info += " " 
                 + coluna 
@@ -99,10 +110,16 @@ public class Condicao {
                     Comando.EQUALS + StringUtil.setAspas(valor));
     }
     
+    /**
+     * Adiciona o comando lógico AND
+     */
     public void addAnd() {
         info += " " + Comando.AND;
     }
     
+    /**
+     * Adiciona o comando lógico OR
+     */
     public void addOr() {
         info += " " + Comando.OR;
     }

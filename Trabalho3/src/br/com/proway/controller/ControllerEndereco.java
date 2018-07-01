@@ -1,7 +1,6 @@
 package br.com.proway.controller;
 
 import br.com.proway.bean.EnderecosBean;
-import br.com.proway.bean.PessoasBean;
 import br.com.proway.dao.Condicao;
 import br.com.proway.main.Main;
 import br.com.proway.view.Endereco;
