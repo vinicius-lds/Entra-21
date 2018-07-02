@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/vinic/Desktop/Trabalho3/src/br/com/proway/bean/CargosBean.java</file>
             <file>file:/C:/Users/vinic/Desktop/Trabalho3/src/br/com/proway/dao/Condicao.java</file>
-            <file>file:/C:/Users/vinic/Desktop/Trabalho3/src/br/com/proway/controller/ControllerUsuario.java</file>
-            <file>file:/C:/Users/vinic/Desktop/Trabalho3/src/br/com/proway/bean/PessoasBean.java</file>
-            <file>file:/C:/Users/vinic/Desktop/Trabalho3/src/br/com/proway/view/Usuario.java</file>
+            <file>file:/C:/Users/vinic/Desktop/Trabalho3/src/br/com/proway/connection/ConnectionFactory.java</file>
+            <file>file:/C:/Users/vinic/Desktop/Trabalho3/src/br/com/proway/dao/DAO.java</file>
         </group>
     </open-files>
 </project-private>
