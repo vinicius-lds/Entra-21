@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename local variable &apos;intArrAux&apos; in &apos;exercicios.Exercicio08.main(...)&apos; to &apos;doubleArrAux&apos;&#x0D;&#x0A;- Original project: &apos;ArraysMultimensionais&apos;&#x0D;&#x0A;- Original element: &apos;exercicios.Exercicio08.main(String[]).intArrAux&apos;&#x0D;&#x0A;- Renamed element: &apos;intArrAux&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;intArrAux&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;exercicios{Exercicio08.java[Exercicio08~main~\[QString;@intArrAux!328!350!334!342!\[I!0!false" name="doubleArrAux" references="true" stamp="1525108524983" version="1.0"/>
-</session>
